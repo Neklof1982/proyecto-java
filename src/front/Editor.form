@@ -1,73 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="front.Editor">
-  <grid id="27dc6" binding="editor" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-    <margin top="0" left="0" bottom="0" right="0"/>
+  <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="48" y="54" width="852" height="297"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <toolbar id="7b392" binding="tollbar">
+      <grid id="e3588" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="1" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="-1" height="20"/>
-          </grid>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
-          <component id="d7a3f" class="javax.swing.JButton" binding="upload" custom-create="true">
-            <constraints/>
-            <properties>
-              <actionCommand value="Button"/>
-              <borderPainted value="true"/>
-              <contentAreaFilled value="true"/>
-              <defaultCapable value="false"/>
-              <doubleBuffered value="false"/>
-              <enabled value="true"/>
-              <focusCycleRoot value="false"/>
-              <focusPainted value="true"/>
-              <focusTraversalPolicyProvider value="false"/>
-              <focusable value="true"/>
-              <icon value="front/icons/upload.png"/>
-              <iconTextGap value="4"/>
-              <maximumSize width="30" height="30"/>
-              <minimumSize width="30" height="30"/>
-              <opaque value="true"/>
-              <preferredSize width="30" height="30"/>
-              <selected value="false"/>
-              <text value=""/>
-              <visible value="true"/>
-            </properties>
-          </component>
-        </children>
-      </toolbar>
-      <splitpane id="ba974">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="200" height="200"/>
-          </grid>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children>
-          <component id="4e407" class="javax.swing.JList" binding="notes">
+          <toolbar id="e626a">
             <constraints>
-              <splitpane position="left"/>
+              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="20"/>
+              </grid>
             </constraints>
             <properties/>
-          </component>
-          <component id="c3279" class="javax.swing.JTextArea" binding="textEditor">
+            <border type="none"/>
+            <children>
+              <component id="bb6aa" class="javax.swing.JButton" binding="push">
+                <constraints/>
+                <properties>
+                  <autoscrolls value="false"/>
+                  <icon value="front/icons/push.png"/>
+                  <maximumSize width="30" height="30"/>
+                  <minimumSize width="30" height="30"/>
+                  <opaque value="true"/>
+                  <preferredSize width="30" height="30"/>
+                  <requestFocusEnabled value="true"/>
+                  <rolloverEnabled value="true"/>
+                  <selected value="false"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="6bbc3" class="javax.swing.JButton" binding="pull">
+                <constraints/>
+                <properties>
+                  <icon value="front/icons/pull.png"/>
+                  <maximumSize width="30" height="30"/>
+                  <minimumSize width="10" height="10"/>
+                  <preferredSize width="30" height="30"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="431e1" class="javax.swing.JButton" binding="button3" default-binding="true">
+                <constraints/>
+                <properties>
+                  <maximumSize width="30" height="30"/>
+                  <minimumSize width="30" height="30"/>
+                  <text value="Button"/>
+                </properties>
+              </component>
+              <component id="51a13" class="javax.swing.JButton" binding="button4" default-binding="true">
+                <constraints/>
+                <properties>
+                  <maximumSize width="30" height="30"/>
+                  <minimumSize width="30" height="30"/>
+                  <text value="Button"/>
+                </properties>
+              </component>
+            </children>
+          </toolbar>
+          <splitpane id="ef218">
             <constraints>
-              <splitpane position="right"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="200" height="200"/>
+              </grid>
             </constraints>
-            <properties>
-              <text value=""/>
-            </properties>
-          </component>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="267e9" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+                <constraints>
+                  <splitpane position="right"/>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="15889" class="javax.swing.JList" binding="list1" default-binding="true">
+                <constraints>
+                  <splitpane position="left"/>
+                </constraints>
+                <properties/>
+              </component>
+            </children>
+          </splitpane>
         </children>
-      </splitpane>
+      </grid>
     </children>
   </grid>
 </form>

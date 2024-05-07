@@ -8,7 +8,8 @@ public class Nota {
     private String nombre;
     private String nota;
 
-    // #### CONSTRUCTOR ###############
+
+// #### CONSTRUCTOR ###############
 
     public Nota(int id, String nombre, String nota) {
         this.id = id;
@@ -17,6 +18,10 @@ public class Nota {
     }
 
     // #### GET and SET ###############
+
+    public int getId() {
+        return id;
+    }
 
     public String getNombre() {
         return nombre;
@@ -32,5 +37,10 @@ public class Nota {
 
     public void setNota(String nota) {
         this.nota = nota;
+    }
+
+    @Override
+    public int compareTo(Nota o) {
+        return id - o.getId();
     }
 }

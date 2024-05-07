@@ -7,8 +7,8 @@ public class Login extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JTextField userName;
-    private JPasswordField password;
+    private JPasswordField passwordField1;
+    private JTextField textField1;
 
     public Login() {
         setContentPane(contentPane);
