@@ -1,6 +1,6 @@
 package back;
 
-public class Nota {
+public class Nota implements Comparable<Nota> {
 
     // #### ATRIBUTOS #################
 

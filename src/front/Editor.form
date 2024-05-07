@@ -25,7 +25,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="bb6aa" class="javax.swing.JButton" binding="push">
+              <component id="bb6aa" class="javax.swing.JButton" binding="pushNotes">
                 <constraints/>
                 <properties>
                   <autoscrolls value="false"/>
@@ -40,7 +40,7 @@
                   <text value=""/>
                 </properties>
               </component>
-              <component id="6bbc3" class="javax.swing.JButton" binding="pull">
+              <component id="6bbc3" class="javax.swing.JButton" binding="pullNotes">
                 <constraints/>
                 <properties>
                   <icon value="front/icons/pull.png"/>
@@ -50,17 +50,21 @@
                   <text value=""/>
                 </properties>
               </component>
-              <component id="431e1" class="javax.swing.JButton" binding="button3" default-binding="true">
+              <component id="431e1" class="javax.swing.JButton" binding="newNote">
                 <constraints/>
                 <properties>
+                  <alignmentY value="0.5"/>
+                  <icon value="front/icons/new.png"/>
                   <maximumSize width="30" height="30"/>
                   <minimumSize width="30" height="30"/>
-                  <text value="Button"/>
+                  <text value=""/>
+                  <verifyInputWhenFocusTarget value="true"/>
                 </properties>
               </component>
-              <component id="51a13" class="javax.swing.JButton" binding="button4" default-binding="true">
+              <component id="51a13" class="javax.swing.JButton" binding="deleteNote">
                 <constraints/>
                 <properties>
+                  <icon value="front/icons/delete.png"/>
                   <maximumSize width="30" height="30"/>
                   <minimumSize width="30" height="30"/>
                   <text value="Button"/>
@@ -81,7 +85,9 @@
                 <constraints>
                   <splitpane position="right"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <text value=""/>
+                </properties>
               </component>
               <component id="15889" class="javax.swing.JList" binding="list1" default-binding="true">
                 <constraints>
