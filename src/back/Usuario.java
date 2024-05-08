@@ -1,12 +1,20 @@
 package back;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.HashSet;
 
 public class Usuario {
     private String nombre;
     private String contraseña;
-    private Set<Nota> listaNotas = new TreeSet<Nota>();
+
+    private HashSet<Nota> listaNotas = new HashSet<Nota>();
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
 
     public Usuario(String contraseña, String nombre) {
         this.contraseña = contraseña;
@@ -21,11 +29,11 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public Set<Nota> getListaNotas() {
+    public HashSet<Nota> getListaNotas() {
         return listaNotas;
     }
 
-    public void setListaNotas(Set<Nota> listaNotas) {
+    public void setListaNotas(HashSet<Nota> listaNotas) {
         this.listaNotas = listaNotas;
     }
 }

@@ -8,13 +8,19 @@ public class Nota implements Comparable<Nota> {
     private String nombre;
     private String nota;
 
-
-// #### CONSTRUCTOR ###############
+    // #### CONSTRUCTOR ###############
 
     public Nota(int id, String nombre, String nota) {
         this.id = id;
         this.nombre = nombre;
         this.nota = nota;
+    }
+
+    // #### METODOS ###################
+
+    @Override
+    public int compareTo(Nota o) {
+        return id - o.getId();
     }
 
     // #### GET and SET ###############
@@ -37,10 +43,5 @@ public class Nota implements Comparable<Nota> {
 
     public void setNota(String nota) {
         this.nota = nota;
-    }
-
-    @Override
-    public int compareTo(Nota o) {
-        return id - o.getId();
     }
 }
