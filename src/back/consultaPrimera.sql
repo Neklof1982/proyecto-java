@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS Proyecto;
 CREATE DATABASE IF NOT EXISTS Proyecto
-  CHARACTER SET utf8 COLLATE utf8_spanish2_ci;
+CHARACTER SET utf8 COLLATE utf8_spanish2_ci;
 USE Proyecto;
 -- Tablas
 
@@ -18,7 +18,7 @@ CREATE TABLE usuario (
 -- Creamos la tabla notas
 CREATE TABLE notas (
   id_nota INT AUTO_INCREMENT PRIMARY KEY,
-  titulo VARCHAR(30) NULL DEFAULT 'Nota Nueva',
+  titulo VARCHAR(30) NULL DEFAULT 'Nueva Nota',
   fecha_creacion DATE,
   contenido TEXT NULL,
   id_nombreFK VARCHAR(30) NOT NULL,
@@ -27,17 +27,17 @@ CREATE TABLE notas (
 
 -- Insertamos datos en la tabla usuario
 INSERT INTO usuario (id_nombre, apellidos, contraseña)
-VALUES 
-    ('Usuario1', 'Apellidos1', 'Contraseña1'),
-    ('Usuario2', 'Apellidos2', 'Contraseña2'),
-    ('Usuario3', 'Apellidos2', 'Contraseña3');
-    
+VALUES
+    ('alvaro', 'Apellidos1', '123'),
+    ('oscar', 'Apellidos2', '123'),
+    ('juan', 'Apellidos2', '123');
+
 -- Insertamos datos en la tabla notas
 INSERT INTO notas (titulo, fecha_creacion, contenido, id_nombreFK)
 VALUES
-    ('Titulo1', '2024-05-05', 'Texto1', 'Usuario1'),
-    (DEFAULT, '2024-05-06', 'Texto2', 'Usuario2'),
-    ('Titulo3', '2024-05-07', 'Texto3', 'Usuario3');
+    ('Titulo1', '2024-05-05', 'Hola soy Óscar', 'oscar'),
+    (DEFAULT, '2024-05-06', 'Hola soy Álvaro', 'alvaro'),
+    ('Titulo3', '2024-05-07', 'hola soy Juan', 'juan');
 
 -- Seleccionamos todos los registros de las tablas
 SELECT * FROM usuario;

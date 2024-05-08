@@ -9,16 +9,20 @@ public class UsuarioDAO {
         Statement sentencia;
         ResultSet rs;
         String sql;
-        String url = "jdbc:mysql://localhost/Projecto";
-        Usuario usuario = new Usuario("a", "pepe");
+        String url = "jdbc:mysql://localhost/Proyecto";
+        Usuario usuario = new Usuario(nombre, contraseña);
         int contador = 0;
 
         try {
-            con = DriverManager.getConnection(url, "mysql", "mysql");
+            con = DriverManager.getConnection(url, "Pepe", "12345");
             sentencia = con.createStatement();
-            sql = "select count(*) from usuario where nombre = " + nombre + " && contraseña = " + contraseña;
-            rs = sentencia.executeQuery(sql);
+            String consulta = "SELECT COUNT(*) FROM usuario WHERE id_nombre = ? AND contraseña = ?";
+            PreparedStatement statement = con.prepareStatement(consulta);
+            statement.setString(1, nombre);
+            statement.setString(2, contraseña);
+            rs = statement.executeQuery();
             while (rs.next()) {
+                System.out.println(rs.getInt(1));
                 contador += rs.getInt(1);
             }
             if (contador == 0) {
