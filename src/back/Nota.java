@@ -5,15 +5,15 @@ public class Nota implements Comparable<Nota> {
     // #### ATRIBUTOS #################
 
     private final int id;
-    private String nombre;
-    private String nota;
+    private String titulo;
+    private String contenido;
 
     // #### CONSTRUCTOR ###############
 
-    public Nota(int id, String nombre, String nota) {
+    public Nota(int id, String titulo, String contenido) {
         this.id = id;
-        this.nombre = nombre;
-        this.nota = nota;
+        this.titulo = titulo;
+        this.contenido = contenido;
     }
 
     // #### METODOS ###################
@@ -23,25 +23,30 @@ public class Nota implements Comparable<Nota> {
         return id - o.getId();
     }
 
+    @Override
+    public String toString() {
+        return "Nota{" + "id=" + id + ", titulo='" + titulo + '\'' + ", contenido='" + contenido + '\'' + '}';
+    }
+
     // #### GET and SET ###############
 
     public int getId() {
         return id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public String getNota() {
-        return nota;
+    public String getContenido() {
+        return contenido;
     }
 
-    public void setNota(String nota) {
-        this.nota = nota;
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
     }
 }

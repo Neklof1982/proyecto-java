@@ -6,16 +6,19 @@ import java.awt.event.*;
 
 public class RemplaceDialogue extends JDialog {
 
-    private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
-    private JTextField originalText_textField;
-    private JTextField newText_textField;
+    private String oldText = "";
+    private String newText = "";
+
+    private JPanel replacePane;
+    private JButton buttonOK_JButton;
+    private JButton buttonCancel_JButton;
+    private JTextField originalText_JTextField;
+    private JTextField newText_JTextField;
 
     public RemplaceDialogue() {
-        setContentPane(contentPane);
+        setContentPane(replacePane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+        getRootPane().setDefaultButton(buttonOK_JButton);
         setSize(200, 200);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -27,13 +30,13 @@ public class RemplaceDialogue extends JDialog {
     }
 
     private void actions() {
-        buttonOK.addActionListener(new ActionListener() {
+        buttonOK_JButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
             }
         });
 
-        buttonCancel.addActionListener(new ActionListener() {
+        buttonCancel_JButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
             }
@@ -46,7 +49,7 @@ public class RemplaceDialogue extends JDialog {
             }
         });
 
-        contentPane.registerKeyboardAction(new ActionListener() {
+        replacePane.registerKeyboardAction(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
             }
@@ -54,14 +57,24 @@ public class RemplaceDialogue extends JDialog {
     }
 
     public String[] getValues() {
-        return new String[]{originalText_textField.getText(), newText_textField.getText()};
+        return new String[]{originalText_JTextField.getText(), newText_JTextField.getText()};
     };
 
     private void onOK() {
+        newText = newText_JTextField.getText();
+        oldText = originalText_JTextField.getText();
         dispose();
     }
 
     private void onCancel() {
         dispose();
+    }
+
+    public String getOldText() {
+        return oldText;
+    }
+
+    public String getNewText() {
+        return newText;
     }
 }
