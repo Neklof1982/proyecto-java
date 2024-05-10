@@ -32,7 +32,7 @@ public class UsuarioDAO {
             statement.setString(1, nombre);
             rs = statement.executeQuery();
             while (rs.next()) {
-                usuario.getListaNotas().add(new Nota(rs.getInt(1), rs.getString(2), rs.getString(4)));
+                usuario.getListaNotas().add(new Nota(rs.getInt(1), rs.getString(2), rs.getString(4),rs.getString(3),rs.getInt(5)));
             }
             try {
                 con.close();
@@ -61,7 +61,7 @@ public class UsuarioDAO {
             statement.setString(3, contraseña);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
 
         return true;
@@ -81,7 +81,7 @@ public class UsuarioDAO {
             statement.setString(2, contraseña);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
 
         return true;
@@ -102,11 +102,13 @@ public class UsuarioDAO {
             Iterator<Nota> it = usu.getListaNotas().iterator();
             while (it.hasNext()){
                 Nota nota = it.next();
-                consulta = "insert into notas(titulo,contenido,id_nombreFK) values (?,?,?)";
+                consulta = "insert into notas(titulo,fecha_creacion,contenido,tamañoTexto,id_nombreFK) values (?,?,?,?,?)";
                 statement = con.prepareStatement(consulta);
                 statement.setString(1, nota.getTitulo());
-                statement.setString(2, nota.getContenido());
-                statement.setString(3, usu.getNombre());
+                statement.setString(2, nota.getFechaCreacion());
+                statement.setString(3, nota.getContenido());
+                statement.setInt(4, nota.getTamanoTexto());
+                statement.setString(5, usu.getNombre());
                 statement.executeUpdate();
             }
 

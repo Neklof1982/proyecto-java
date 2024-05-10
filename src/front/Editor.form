@@ -50,7 +50,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="1a400" class="javax.swing.JButton" binding="pushNotes_Jbutton">
+          <component id="1a400" class="javax.swing.JButton" binding="saveNotes_Jbutton">
             <constraints/>
             <properties>
               <icon value="front/icons/pull.png"/>

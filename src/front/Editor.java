@@ -18,6 +18,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -36,7 +38,7 @@ public class Editor extends JFrame {
     private JList noteList_JList;
     private JTextArea noteEditor_JTextArea;
     private JPanel editorPane;
-    private JButton pushNotes_Jbutton;
+    private JButton saveNotes_Jbutton;
     private JButton newNote_Jbutton;
     private JButton deleteNote_Jbutton;
     private JButton renameNote_Jbutton;
@@ -57,17 +59,28 @@ public class Editor extends JFrame {
         acctions();
     }
 
+    private String fechaActual() {
+        Date now = new Date();
+        SimpleDateFormat  dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(now);
+    }
+
     private void selectFirstNote() {
 
         // Si no tiene notas le creo una
         if (notas.size() == 0) {
-            notas.add(new Nota(1,"Tu primera nota","Esta es tu primera nota"));
+            notas.add(new Nota(1,"Tu primera nota","Esta es tu primera nota", fechaActual(),20));
             updateNoteList();
         }
 
         // Seleciono la primera nota
         selectedNote = notas.first();
         noteEditor_JTextArea.setText(selectedNote.getContenido());
+        noteList_JList.setSelectedValue(selectedNote,true);
+
+        Font fuenteActual = noteEditor_JTextArea.getFont();
+        Font nuevaFuente = fuenteActual.deriveFont(Font.PLAIN, selectedNote.getTamanoTexto());
+        noteEditor_JTextArea.setFont(nuevaFuente);
     }
 
     // ##### METODOS ##################
@@ -78,7 +91,6 @@ public class Editor extends JFrame {
 
         // Leo los datos guardados en el equipo (si estan)
         if (datosUsuariosR.exists()) {
-
             try {
                 Gson gson = new Gson();
 
@@ -86,6 +98,9 @@ public class Editor extends JFrame {
                 JsonReader lectorJson = new JsonReader(lector);
 
                 usuario = gson.fromJson(lectorJson, Usuario.class);
+
+                usuario = UsuarioDAO.obtenerUsuario(usuario.getNombre(), usuario.getContraseña());
+
                 notas = usuario.getListaNotas();
 
                 lectorJson.close();
@@ -158,7 +173,7 @@ public class Editor extends JFrame {
 
     private void newNote() {
         int lastId = notas.last().getId();
-        notas.add(new Nota(lastId +  1, JOptionPane.showInputDialog("Nombre de la nota"), ""));
+        notas.add(new Nota(lastId +  1, JOptionPane.showInputDialog("Nombre de la nota"), " ", fechaActual(), 20));
 
         selectedNote = notas.last();
         noteEditor_JTextArea.setText(selectedNote.getContenido());
@@ -168,8 +183,11 @@ public class Editor extends JFrame {
 
     private void changeNote() {
         selectedNote = (Nota) noteList_JList.getSelectedValue();
-        System.out.println(selectedNote);
         noteEditor_JTextArea.setText(selectedNote.getContenido());
+
+        Font fuenteActual = noteEditor_JTextArea.getFont();
+        Font nuevaFuente = fuenteActual.deriveFont(Font.PLAIN, selectedNote.getTamanoTexto());
+        noteEditor_JTextArea.setFont(nuevaFuente);
     }
 
     private void updateNoteList() {
@@ -192,6 +210,7 @@ public class Editor extends JFrame {
         Font fuenteActual = noteEditor_JTextArea.getFont();
         Font nuevaFuente = fuenteActual.deriveFont(Font.PLAIN, fuenteActual.getSize() + 2);
         noteEditor_JTextArea.setFont(nuevaFuente);
+        selectedNote.setTamanoTexto(fuenteActual.getSize());
     }
 
     // Disminuir tamaño fuente
@@ -199,6 +218,7 @@ public class Editor extends JFrame {
         Font fuenteActual = noteEditor_JTextArea.getFont();
         Font nuevaFuente = fuenteActual.deriveFont(Font.PLAIN, fuenteActual.getSize() - 2);
         noteEditor_JTextArea.setFont(nuevaFuente);
+        selectedNote.setTamanoTexto(fuenteActual.getSize());
     }
 
     private void replaceAll() {
@@ -232,9 +252,19 @@ public class Editor extends JFrame {
         }
     }
 
+    // Guardo la nota editada y la mando al servidor
+    private void saveNotes() {
+        selectedNote.setContenido(noteEditor_JTextArea.getText());
+        UsuarioDAO.actualizarNotas(usuario);
+    }
+
+    // Elimino la nota y la mando al servidor
     private void deleteNote() {
         if (JOptionPane.showConfirmDialog(this, "¿Estas seguro de eliminar esta nota?", "Eliminar Nota", JOptionPane.YES_NO_CANCEL_OPTION) == 0) {
             notas.remove(selectedNote);
+            selectFirstNote();
+            UsuarioDAO.actualizarNotas(usuario);
+            updateNoteList();
         }
     }
 
@@ -247,6 +277,7 @@ public class Editor extends JFrame {
 
         // Centrado y tamaño de la ventana
         setSize(500,500);
+        setMinimumSize(new Dimension(300, 300));
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (screenSize.width - getWidth()) / 2;
         int y = (screenSize.height - getHeight()) / 2;
@@ -270,10 +301,10 @@ public class Editor extends JFrame {
             }
         });
 
-        // Eliminar nota
-        deleteNote_Jbutton.addActionListener(new ActionListener() {
+        saveNotes_Jbutton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO deleteNote();
+                saveNotes();
             }
         });
 

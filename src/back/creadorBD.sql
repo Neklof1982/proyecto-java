@@ -21,9 +21,10 @@ CREATE TABLE usuario (
 -- Creamos la tabla notas
 CREATE TABLE notas (
                        id_nota INT AUTO_INCREMENT PRIMARY KEY,
-                       titulo VARCHAR(30) NULL DEFAULT 'Nota Nueva',
+                       titulo VARCHAR(30) NOT NULL DEFAULT 'Nota Nueva',
                        fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                        contenido TEXT NULL,
+                       tamañoTexto INT NOT NULL ,
                        id_nombreFK VARCHAR(30) NOT NULL,
                        FOREIGN KEY (id_nombreFK) REFERENCES usuario(id_nombre)
 );
@@ -262,12 +263,12 @@ VALUES
 
 
 -- Insertamos datos en la tabla notas
-INSERT INTO notas (titulo, contenido, id_nombreFK)
+INSERT INTO notas (titulo, contenido,tamañoTexto,id_nombreFK)
 VALUES
-    ('nota alvaro', 'esta es la nota de alvaro', 'alvaro'),
-    ('Titulo1', 'Texto1', 'Usuario1'),
-    (DEFAULT, 'Texto2', 'Usuario2'),
-    ('Titulo3', NULL, 'Usuario3');
+    ('nota alvaro', 'esta es la nota de alvaro', 20 ,'alvaro'),
+    ('Titulo1', 'Texto1', 20 ,'Usuario1'),
+    (DEFAULT, 'Texto2',20,'Usuario2'),
+    ('Titulo3', NULL,20,'Usuario3');
 
 
 -- Seleccionamos todos los registros de las tablas
