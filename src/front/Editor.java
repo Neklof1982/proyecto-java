@@ -5,9 +5,9 @@ import back.Usuario;
 import back.UsuarioDAO;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import front.dialogue.LoginDialogue;
-import front.dialogue.RemplaceDialogue;
-import front.dialogue.SingUpDialogue;
+import front.dialogue.DialogoInicio;
+import front.dialogue.DialogoReemplazoTexto;
+import front.dialogue.DialogoRegistro;
 import front.renders.NoteListRender;
 
 import javax.swing.*;
@@ -110,12 +110,12 @@ public class Editor extends JFrame {
         } else {
             // Si no hay datos de usuario en el equipo se accede a la base de datos
             // Se abre la ventana de login
-            LoginDialogue login = new LoginDialogue();
+            DialogoInicio login = new DialogoInicio();
 
             switch (login.getAcction()) {
                 case 1: { // SingUp
                     // Se abre la ventana de registro
-                    SingUpDialogue singUp = new SingUpDialogue();
+                    DialogoRegistro singUp = new DialogoRegistro();
 
                     // Se recogen los datos de registro
                     String nombre = singUp.getUserName();
@@ -222,7 +222,7 @@ public class Editor extends JFrame {
     }
 
     private void replaceAll() {
-        RemplaceDialogue remplaceDialogue = new RemplaceDialogue();
+        DialogoReemplazoTexto remplaceDialogue = new DialogoReemplazoTexto();
         remplaceDialogue.setVisible(true);
         noteEditor_JTextArea.setText(noteEditor_JTextArea.getText().replaceAll(remplaceDialogue.getOldText(), remplaceDialogue.getNewText()));
     }

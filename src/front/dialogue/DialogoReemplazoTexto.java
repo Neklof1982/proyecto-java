@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class RemplaceDialogue extends JDialog {
+public class DialogoReemplazoTexto extends JDialog {
 
     private String oldText = "";
     private String newText = "";
@@ -15,7 +15,7 @@ public class RemplaceDialogue extends JDialog {
     private JTextField originalText_JTextField;
     private JTextField newText_JTextField;
 
-    public RemplaceDialogue() {
+    public DialogoReemplazoTexto() {
         setContentPane(replacePane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK_JButton);

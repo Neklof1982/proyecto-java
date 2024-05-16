@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginDialogue extends JDialog {
+public class DialogoInicio extends JDialog {
 
     private int acction = 3;
     private String userName;
@@ -18,7 +18,7 @@ public class LoginDialogue extends JDialog {
     private JTextField userName_JTextField;
     private JButton SignUp_JButton;
 
-    public LoginDialogue() {
+    public DialogoInicio() {
         acctions();
         loginStyle();
     }

@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SingUpDialogue extends JDialog {
+public class DialogoRegistro extends JDialog {
 
     private String userName;
     private String surname;
@@ -19,7 +19,7 @@ public class SingUpDialogue extends JDialog {
     private JTextField userName_JTextField;
     private JTextField surname_JTextField;
 
-    public SingUpDialogue() {
+    public DialogoRegistro() {
         acctions();
         singUpStyle();
     }
@@ -54,25 +54,36 @@ public class SingUpDialogue extends JDialog {
     }
 
     private void singUpAcction() {
-
-        // Se comprueba si son iguales las contraseñas
-        if (String.valueOf(String.valueOf(password1_JPasswordField.getPassword())).equals(String.valueOf(password2_JPasswordField.getPassword()))) {
-            // Se comprueba que el nombre de usuario no es == ("" || " " || null)
-            if (!(userName_JTextField.getText().equals("") || userName_JTextField.getText().equals(" ") || (userName_JTextField.getText() == null))) {
-                if (!(surname_JTextField.getText().equals("") || surname_JTextField.getText().equals("") ||surname_JTextField.getText() == null)) {
-                    userName = userName_JTextField.getText();
-                    surname = surname_JTextField.getText();
-                    password = password1_JPasswordField.getPassword();
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Apellido no permitido");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Nombre no permitido");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
+        if (comprobarNombre() && comprobarApellido() && comprobarContrasena()) {
+            userName = userName_JTextField.getText();
+            surname = surname_JTextField.getText();
+            password = password1_JPasswordField.getPassword();
+            dispose();
         }
+    }
+
+    private boolean comprobarContrasena() {
+        if (String.valueOf(String.valueOf(password1_JPasswordField.getPassword())).equals(String.valueOf(password2_JPasswordField.getPassword())) && !(userName_JTextField.getText().isEmpty() || userName_JTextField.getText().equals(" ") || (userName_JTextField.getText() == null))) {
+            return true;
+        }
+        JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
+        return false;
+    }
+
+    private boolean comprobarNombre() {
+        if (!(userName_JTextField.getText().equals("") || userName_JTextField.getText().equals(" ") || (userName_JTextField.getText() == null))) {
+            return true;
+        }
+        JOptionPane.showMessageDialog(this, "Nombre no permitido");
+        return false;
+    }
+
+    private boolean comprobarApellido() {
+        if (!(surname_JTextField.getText().equals("") || surname_JTextField.getText().equals(" ") ||surname_JTextField.getText() == null)) {
+            return true;
+        }
+        JOptionPane.showMessageDialog(this, "Apellido no permitido");
+        return false;
     }
 
     private void onCancel() {
