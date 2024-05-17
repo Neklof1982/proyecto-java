@@ -11,6 +11,12 @@ public class LecturaEscrituraFicheros {
             bw.write(json);
         } catch (IOException e) {
             return false;
+        }finally {
+            try {
+                bw.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         return true;
     }

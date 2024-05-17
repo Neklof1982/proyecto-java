@@ -1,4 +1,4 @@
-package front.dialogue;
+package front.dialogos;
 
 import javax.swing.*;
 import java.awt.*;

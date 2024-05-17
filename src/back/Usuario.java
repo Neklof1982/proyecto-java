@@ -26,7 +26,7 @@ public class Usuario extends Persona{
         this.contraseña = contraseña;
     }
 
-    public Usuario(String contraseña, String nombre) {
+    public Usuario( String nombre,String contraseña) {
         this.contraseña = contraseña;
         this.nombre = nombre;
     }

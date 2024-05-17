@@ -144,7 +144,7 @@ public class UsuarioDAO {
         String[] array = null;
 
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("conexion.txt"));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("./src/back/conexion.txt"));
 
             array = bufferedReader.readLine().split(",");
 
@@ -154,8 +154,6 @@ public class UsuarioDAO {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
         return DriverManager.getConnection(url, usuario, pass);
     }
 

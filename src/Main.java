@@ -8,7 +8,7 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    Editor editor = new Editor();
+                    Editor editor2 = new Editor();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

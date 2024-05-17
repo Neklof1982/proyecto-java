@@ -5,7 +5,7 @@ import back.Nota;
 import javax.swing.*;
 import java.awt.*;
 
-public class NoteListRender extends JLabel implements ListCellRenderer<Nota> {
+public class RenderizadorLista extends JLabel implements ListCellRenderer<Nota> {
     @Override
     public Component getListCellRendererComponent(JList<? extends Nota> list, Nota value, int index, boolean isSelected, boolean cellHasFocus) {
 
