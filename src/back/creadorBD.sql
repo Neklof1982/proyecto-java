@@ -24,7 +24,7 @@ CREATE TABLE notas (
                        titulo VARCHAR(30) NOT NULL DEFAULT 'Nota Nueva',
                        fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                        contenido TEXT NULL,
-                       tamañoTexto INT NOT NULL ,
+                       tamanioTexto INT NOT NULL ,
                        id_nombreFK VARCHAR(30) NOT NULL,
                        FOREIGN KEY (id_nombreFK) REFERENCES usuario(id_nombre)
 );
@@ -263,7 +263,7 @@ VALUES
 
 
 -- Insertamos datos en la tabla notas
-INSERT INTO notas (titulo, contenido,tamañoTexto,id_nombreFK)
+INSERT INTO notas (titulo, contenido,tamanioTexto,id_nombreFK)
 VALUES
     ('nota alvaro', 'esta es la nota de alvaro', 20 ,'alvaro'),
     ('Titulo1', 'Texto1', 20 ,'Usuario1'),

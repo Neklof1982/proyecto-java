@@ -120,7 +120,7 @@ public class UsuarioDAO {
             Iterator<Nota> it = usu.getListaNotas().iterator();
             while (it.hasNext()){
                 Nota nota = it.next();
-                consulta = "insert into notas(titulo,fecha_creacion,contenido,tamañoTexto,id_nombreFK) values (?,?,?,?,?)";
+                consulta = "insert into notas(titulo,fecha_creacion,contenido,tamanioTexto,id_nombreFK) values (?,?,?,?,?)";
                 statement = con.prepareStatement(consulta);
                 statement.setString(1, nota.getTitulo());
                 statement.setString(2, nota.getFechaCreacion());

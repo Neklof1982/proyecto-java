@@ -1,47 +1,37 @@
 package conector;
 
 import back.Usuario;
+import back.UsuarioDAO;
 import com.google.gson.Gson;
+
 
 public class Conector {
 
-    private usuarioBackDAO usuarioBDAO;
-
-    public Conector(usuarioBackDAO usuarioBDAO) {
-        this.usuarioBDAO = usuarioBDAO;
-    }
-
-    public String obtenerUsuarioEnJson(String nombre, String contraseñia) {
-        Usuario usuario = usuarioBDAO.obtenerUsuario(nombre, contrasenia);
-        if (usuario != null) {
-            Gson gson = new Gson();
-            return gson.toJson(usuario);
-        } else {
-            return null;
-            /*
-             JsonObject errorJson = new JsonObject();
-             errorJson.addProperty("error", "El usuario no fue encontrado");
-             Gson gson = new Gson();
-             return gson.toJson(errorJson);
-             */
-        }
-    }
-    public boolean crearUsuarioDesdeJson(String jsonUsuario) {
+    public static Usuario obtenerUsuarioCon(String nombre, String contrasenia) {
+        Usuario usuario = new Usuario(nombre,contrasenia);
         Gson gson = new Gson();
-        Usuario usuario = gson.fromJson(jsonUsuario, Usuario.class);
-        return usuarioBDAO.crearUsuario(usuario.getNombre(), usuario.getApellido(), usuario.getContrasenia());
+        LecturaEscrituraFicheros.escribirJson(gson.toJson(usuario,Usuario.class));
+        return UsuarioDAO.obtenerUsuario();
+    }
+    public static boolean crearUsuarioCon(String nombre, String contrasenia,String apellido) {
+        Usuario usuario = new Usuario(nombre,contrasenia);
+        usuario.setApellido(apellido);
+        Gson gson = new Gson();
+        LecturaEscrituraFicheros.escribirJson(gson.toJson(usuario,Usuario.class));
+        return UsuarioDAO.crearUsuario();
+    }
+    public static boolean borrarUsuarioCon(String nombre, String contrasenia) {
+        Usuario usuario = new Usuario(nombre,contrasenia);
+        Gson gson = new Gson();
+        LecturaEscrituraFicheros.escribirJson(gson.toJson(usuario,Usuario.class));
+        return UsuarioDAO.borrarUsuario();
     }
 
-    public boolean borrarUsuarioDesdeJson(String jsonUsuario) {
+    public static boolean actualizarNotasCon(Usuario usuario) {
         Gson gson = new Gson();
-        Usuario usuario = gson.fromJson(jsonUsuario, Usuario.class);
-        return usuarioBDAO.borrarUsuario(usuario.getNombre(), usuario.getContrasenia());
+        LecturaEscrituraFicheros.escribirJson(gson.toJson(usuario,Usuario.class));
+        return UsuarioDAO.actualizarNotas();
     }
 
-    public boolean actualizarNotasDesdeJson(String jsonUsuario) {
-        Gson gson = new Gson();
-        Usuario usuario = gson.fromJson(jsonUsuario, Usuario.class);
-        return usuarioBDAO.actualizarNotas(usuario);
-    }
 
 }

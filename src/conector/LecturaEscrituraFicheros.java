@@ -1,10 +1,23 @@
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+package conector;
 
 import java.io.*;
 
 public class LecturaEscrituraFicheros {
 
+    static boolean escribirJson(String json){
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter("entrada.json"));
+            bw.write(json);
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
+
+
+    /*
     private static final Gson gson = new Gson();
 
     // Método para leer archivo del front (entrada) y convertirlo a JSON
@@ -71,7 +84,10 @@ public class LecturaEscrituraFicheros {
                 }
             }
         }
+
     }
+    */
+
 }
 
 
