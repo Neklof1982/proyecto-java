@@ -4,23 +4,28 @@ import java.io.*;
 
 public class LecturaEscrituraFicheros {
 
-    static boolean escribirJson(String json){
+    static boolean escribirJson(String json) {
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new FileWriter("entrada.json"));
-            bw.write(json);
+            bw.write(json);                                                     // Escribimos el contenido del String `json` en el archivo.
         } catch (IOException e) {
+            System.out.println("Error al leer el archivo del Front");           // Si ocurre una IOException, imprimimos un mensaje de error.
             return false;
-        }finally {
-            try {
-                bw.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        } finally {
+            if (bw != null) {
+                try {
+                    bw.close();
+                } catch (IOException e) {
+                    System.out.println("Error al guardar el archivo del Back"); // Si ocurre una IOException, imprimimos un mensaje de error.
+                    //throw new RuntimeException(e);
+                    return false;
+                }
             }
         }
-        return true;
+            return true;                                                       // Si el proceso de escritura y cierre fue exitoso, devolvemos true.
     }
-
+}
 
 
     /*
@@ -46,7 +51,7 @@ public class LecturaEscrituraFicheros {
 
     // Método para convertir JSON a un objeto
     private static String fromJson(String json) {
-        return gson.fromJson(json, String.class); // Cambiar a tu clase de respuesta si es necesario
+        return gson.fromJson(json, String.class);
     }
 
     // Método para leer archivo del front (entrada)
@@ -94,72 +99,15 @@ public class LecturaEscrituraFicheros {
     }
     */
 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
-public class LecturaEscrituraFicheros {
 
-    // Método para leer archivo del front (entrada)
-    public static String leerArchivoFront(String nombreArchivo) {
-        StringBuilder contenido = new StringBuilder();
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader("front_input/" + nombreArchivo));
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                contenido.append(linea).append("\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return contenido.toString();
-    }
 
-    // Método para escribir archivo de respuesta del back (salida)
-    public static void escribirArchivoBack(String nombreArchivo, String contenido) {
-        BufferedWriter bw = null;
-        try {
-            bw = new BufferedWriter(new FileWriter("back_output/" + nombreArchivo));
-            bw.write(contenido);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (bw != null) {
-                try {
-                    bw.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 
     // Método para guardar datos en archivo de persistencia
     public static void guardarDatos(String nombreArchivo, String datos) {
         BufferedWriter bw = null;
         try {
-            bw = new BufferedWriter(new FileWriter("data/" + nombreArchivo));
+            bw = new BufferedWriter(new FileWriter(nombreArchivo));
             bw.write(datos);
         } catch (IOException e) {
             e.printStackTrace();
@@ -179,7 +127,7 @@ public class LecturaEscrituraFicheros {
         StringBuilder contenido = new StringBuilder();
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader("data/" + nombreArchivo));
+            br = new BufferedReader(new FileReader(ombreArchivo));
             String linea;
             while ((linea = br.readLine()) != null) {
                 contenido.append(linea).append("\n");
