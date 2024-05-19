@@ -301,9 +301,14 @@ public class Editor extends JFrame {
         setVisible(true);
 
         // Se carga los datos del usuario
-        cargarDatos();
-        actualizarListaNotas();
-        seleccionarPrimeraNota();
+        if (Conector.comprobarConexion()) {
+            cargarDatos();
+            actualizarListaNotas();
+            seleccionarPrimeraNota();
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay conexion con la base de datos");
+            dispose();
+        }
     }
 
     // Guardar las notas en local

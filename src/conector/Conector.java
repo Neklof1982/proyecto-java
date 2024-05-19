@@ -14,6 +14,10 @@ public class Conector {
         return UsuarioDAO.obtenerUsuario();
     }
 
+    public static boolean comprobarConexion() {
+        return UsuarioDAO.comprobarConexion();
+    }
+
     public static boolean crearUsuarioCon(String nombre, String apellido, String contrasenia) {
         Usuario usuario = new Usuario(nombre, contrasenia);
         usuario.setApellido(apellido);

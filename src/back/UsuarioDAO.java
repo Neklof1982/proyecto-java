@@ -9,6 +9,35 @@ import java.util.Iterator;
 
 public class UsuarioDAO {
 
+    public static boolean comprobarConexion() {
+        Connection con;
+        PreparedStatement statement;
+        ResultSet rs;
+        String url = "jdbc:mysql://localhost/Proyecto";
+        boolean result = false;
+
+        try {
+            con = getConnection(url);
+            String consulta = "select conexion() as con";
+            statement = con.prepareStatement(consulta);
+            rs = statement.executeQuery();
+
+            if (rs.next()) {
+                result = rs.getInt("con") == 1 ? true : false;
+            }
+
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     public static Usuario obtenerUsuario() {
         Connection con;
         PreparedStatement statement;
@@ -39,7 +68,7 @@ public class UsuarioDAO {
             statement.setString(1, usuario.getNombre());
             rs = statement.executeQuery();
             while (rs.next()) {
-                usuario.getListaNotas().add(new Nota(rs.getInt(1), rs.getString(2), rs.getString(4),rs.getString(3),rs.getInt(5)));
+                usuario.getListaNotas().add(new Nota(rs.getInt(1), rs.getString(2), rs.getString(4), rs.getString(3), rs.getInt(5)));
             }
             try {
                 con.close();
@@ -78,7 +107,7 @@ public class UsuarioDAO {
         return true;
     }
 
-    public static boolean borrarUsuario(){
+    public static boolean borrarUsuario() {
         Connection con;
         PreparedStatement statement;
         String consulta;
@@ -101,7 +130,7 @@ public class UsuarioDAO {
         return true;
     }
 
-    public static boolean actualizarNotas(){
+    public static boolean actualizarNotas() {
         Connection con;
         PreparedStatement statement;
         String consulta;
@@ -118,7 +147,7 @@ public class UsuarioDAO {
             statement.setString(1, usu.getNombre());
             statement.executeUpdate();
             Iterator<Nota> it = usu.getListaNotas().iterator();
-            while (it.hasNext()){
+            while (it.hasNext()) {
                 Nota nota = it.next();
                 consulta = "insert into notas(titulo,fecha_creacion,contenido,tamanioTexto,id_nombreFK) values (?,?,?,?,?)";
                 statement = con.prepareStatement(consulta);

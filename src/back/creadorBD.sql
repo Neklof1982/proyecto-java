@@ -252,6 +252,15 @@ END;
 //
 DELIMITER ;
 
+DELIMITER //
+
+CREATE FUNCTION conexion()
+    RETURNS boolean
+BEGIN
+    RETURN true;
+END;
+//
+DELIMITER ;
 
 -- Insertamos datos en la tabla usuario
 INSERT INTO usuario (id_nombre, apellidos, contrasenia)
@@ -281,3 +290,4 @@ delete from usuario where id_nombre = 'Usuario1';
 SELECT * FROM usuario;
 SELECT * FROM notas;
 SELECT * FROM registro_actividad;
+select conexion();
