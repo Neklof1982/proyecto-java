@@ -173,7 +173,7 @@ public class UsuarioDAO {
         String[] array = null;
 
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("./src/back/conexion.txt"));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("./conexion.txt"));
 
             array = bufferedReader.readLine().split(",");
 

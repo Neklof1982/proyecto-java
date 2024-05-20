@@ -37,6 +37,34 @@ public class LecturaEscrituraFicheros {
         // Convertir el contenido del archivo a JSON
         return toJson(contenido);
     }
+    /*
+    static boolean LecturaTxt (String txt){
+        BufferedReader br = null;
+        String contenido = "";
+        try{
+            br = new BufferedReader(new FileReader( "./conexion.txt"));
+            String linea;
+            while((linea=br.readLine())!=null){
+                contenido += linea;
+            }
+
+        } catch (IOException e) {
+            return false;
+        }finally {
+            try {
+                if(br != null){
+                    br.close();
+                }
+            }catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return true;
+    }
+    */
+
+
+/*
 
     // Método para escribir archivo de respuesta del back (salida) desde JSON
     public static void escribirArchivoBackDesdeJson(String nombreArchivo, String json) {
