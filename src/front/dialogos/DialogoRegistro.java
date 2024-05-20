@@ -2,15 +2,8 @@ package front.dialogos;
 
 import front.renders.BordeRedondeado;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.*;
@@ -37,6 +30,7 @@ public class DialogoRegistro extends JDialog {
     private JPasswordField contrasena_JPassword1;
     private JTextField apellido_JtextField;
     private JTextField apellido_JLabel;
+    private Point initialClick;
 
     public DialogoRegistro() {
 
@@ -166,6 +160,54 @@ public class DialogoRegistro extends JDialog {
             }
         });
         registroPane.add(registrarse_JButton);
+
+        // ATAJOS DE TECLADO
+        InputMap inputMap = registroPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = registroPane.getActionMap();
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "accionRegistrar");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "cerrarAccion");
+
+        actionMap.put("accionRegistrar", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                accionRegistrar();
+            }
+        });
+
+        actionMap.put("cerrarAccion", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                accionCerrar();
+            }
+        });
+
+        // VENTANA ARRASTRABLE
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                initialClick = e.getPoint();
+                getComponentAt(initialClick);
+            }
+        });
+
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                // Obtener la posición actual de la ventana
+                int thisX = getLocation().x;
+                int thisY = getLocation().y;
+
+                // Determinar cuánto se ha movido el ratón
+                int xMoved = e.getX() - initialClick.x;
+                int yMoved = e.getY() - initialClick.y;
+
+                // Mover la ventana a la nueva posición
+                int X = thisX + xMoved;
+                int Y = thisY + yMoved;
+                setLocation(X, Y);
+            }
+        });
 
         // CENTRAR VENTANA
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

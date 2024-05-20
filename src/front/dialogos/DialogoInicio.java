@@ -5,10 +5,7 @@ import front.renders.BordeRedondeado;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 
 public class DialogoInicio extends JDialog {
@@ -29,6 +26,7 @@ public class DialogoInicio extends JDialog {
     private JPasswordField contrasena_JTextField;
     private JButton registrarse_JButton;
     private JButton entrar_JButton;
+    private Point initialClick;
 
     public DialogoInicio() {
 
@@ -56,8 +54,7 @@ public class DialogoInicio extends JDialog {
         cerrar_JButton.setBounds(350, 11, 40, 40);
         cerrar_JButton.setFocusable(false);
         cerrar_JButton.addActionListener(e -> {
-            cancelAcction();
-            dispose();
+            accionCerrar();
         });
         cerrar_JButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -129,8 +126,56 @@ public class DialogoInicio extends JDialog {
         entrar_JButton.setBorder(new BordeRedondeado(Color.BLACK, 20, 1));
         entrar_JButton.setFocusable(false);
         entrar_JButton.setBackground(new Color(0xffffff));
-        entrar_JButton.addActionListener(e -> entrarAcction());
+        entrar_JButton.addActionListener(e -> accionEntrar());
         inicioPane.add(entrar_JButton);
+
+        // ATAJOS DE TECLADO
+        InputMap inputMap = inicioPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = inicioPane.getActionMap();
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "entrarAccion");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "cerrarAccion");
+
+        actionMap.put("entrarAccion", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                accionEntrar();
+            }
+        });
+
+        actionMap.put("cerrarAccion", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                accionCerrar();
+            }
+        });
+
+        // VENTANA ARRASTRABLE
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                initialClick = e.getPoint();
+                getComponentAt(initialClick);
+            }
+        });
+
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                // Obtener la posición actual de la ventana
+                int thisX = getLocation().x;
+                int thisY = getLocation().y;
+
+                // Determinar cuánto se ha movido el ratón
+                int xMoved = e.getX() - initialClick.x;
+                int yMoved = e.getY() - initialClick.y;
+
+                // Mover la ventana a la nueva posición
+                int X = thisX + xMoved;
+                int Y = thisY + yMoved;
+                setLocation(X, Y);
+            }
+        });
 
         // CENTRAR VENTANA
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -147,7 +192,7 @@ public class DialogoInicio extends JDialog {
     }
 
     // Recojo los valores de los inputs
-    private void entrarAcction() {
+    private void accionEntrar() {
         nombreUsuario = nombreUsuario_JtextField.getText();
         contrasena = contrasena_JTextField.getPassword();
         accion = 2;
@@ -155,7 +200,7 @@ public class DialogoInicio extends JDialog {
     }
 
     // Establezco la variable de la opción de cancelado
-    private void cancelAcction() {
+    private void accionCerrar() {
         accion = 3;
         dispose();
     }

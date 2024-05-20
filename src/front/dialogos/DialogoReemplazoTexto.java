@@ -5,10 +5,7 @@ import front.renders.BordeRedondeado;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 
 public class DialogoReemplazoTexto extends JDialog {
@@ -25,6 +22,7 @@ public class DialogoReemplazoTexto extends JDialog {
     private JLabel nuevoTexto_JLabel = new JLabel("Texto nuevo");
     private JTextField nuevoTexto_JTextField = new JTextField();
     private JButton reemplazar_JButton = new JButton("Reemplazar");
+    private Point initialClick;
 
     public DialogoReemplazoTexto() {
 
@@ -112,10 +110,58 @@ public class DialogoReemplazoTexto extends JDialog {
         reemplazar_JButton.setBackground(new Color(0xffffff));
         reemplazar_JButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AccionCambiar();
+                accionReemplazar();
             }
         });
         reemplazoPane.add(reemplazar_JButton);
+
+        // ATAJOS DE TECLADO
+        InputMap inputMap = reemplazoPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = reemplazoPane.getActionMap();
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "accionReemplazar");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "cerrarAccion");
+
+        actionMap.put("accionReemplazar", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                accionReemplazar();
+            }
+        });
+
+        actionMap.put("cerrarAccion", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                accionCerrar();
+            }
+        });
+
+        // VENTANA ARRASTRABLE
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                initialClick = e.getPoint();
+                getComponentAt(initialClick);
+            }
+        });
+
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                // Obtener la posición actual de la ventana
+                int thisX = getLocation().x;
+                int thisY = getLocation().y;
+
+                // Determinar cuánto se ha movido el ratón
+                int xMoved = e.getX() - initialClick.x;
+                int yMoved = e.getY() - initialClick.y;
+
+                // Mover la ventana a la nueva posición
+                int X = thisX + xMoved;
+                int Y = thisY + yMoved;
+                setLocation(X, Y);
+            }
+        });
 
         // CENTRAR VENTANA
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -125,7 +171,7 @@ public class DialogoReemplazoTexto extends JDialog {
         setVisible(true);
     }
 
-    private void AccionCambiar() {
+    private void accionReemplazar() {
         accion = 2;
         nuevo = nuevoTexto_JTextField.getText();
         antiguo = antiguoTexto_JTextField.getText();

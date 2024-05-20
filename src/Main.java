@@ -1,4 +1,6 @@
 import front.Editor;
+import front.dialogos.DialogoInicio;
+import front.dialogos.DialogoRegistro;
 
 import java.awt.*;
 
@@ -8,7 +10,7 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    Editor editor2 = new Editor();
+                    Editor editor = new Editor();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
