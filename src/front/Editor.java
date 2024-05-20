@@ -11,10 +11,7 @@ import front.dialogos.DialogoRegistro;
 import front.renders.RenderizadorLista;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -292,6 +289,29 @@ public class Editor extends JFrame {
         infoLabel.setPreferredSize(new Dimension(500, 20));
         infoLabel.setText("Lineas: 0, Palabras: 0, Caracteres: 0");
         infoPane.add(infoLabel);
+
+        // ATAJOS DE TECLADO
+        textArea.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK), "guardar");
+
+        textArea.getActionMap().put("guardar", new AbstractAction() { // GUARDAR (CTRL + S)
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                guardarNotas();
+            }
+        });
+
+        textArea.addMouseWheelListener(new MouseWheelListener() { // CAMBIAR TAMAÑO DE FUENTE (CTRL + WHEEL)
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                if (e.isControlDown()) {
+                    if (e.getWheelRotation() < 0) {
+                        aumantarFuente();
+                    } else {
+                        disminurFuente();
+                    }
+                }
+            }
+        });
 
         // CENTRAR VENTANA
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
