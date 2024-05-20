@@ -320,13 +320,20 @@ public class Editor extends JFrame {
         setLocation(x, y);
         setVisible(true);
 
-        // Se carga los datos del usuario
-        if (Conector.comprobarConexion()) {
-            cargarDatos();
-            actualizarListaNotas();
-            seleccionarPrimeraNota();
+
+        // Se carga los datos del usuario si el fichero de conexión y la base de datos son accesibles
+        File ficheroConexion = new File("./conexion.txt");
+        if (ficheroConexion.exists()) {
+            if (Conector.comprobarConexion()) {
+                cargarDatos();
+                actualizarListaNotas();
+                seleccionarPrimeraNota();
+            } else {
+                JOptionPane.showMessageDialog(this, "No hay conexion con la base de datos");
+                dispose();
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "No hay conexion con la base de datos");
+            JOptionPane.showMessageDialog(this, "Falta \"conexion.txt\"");
             dispose();
         }
     }
