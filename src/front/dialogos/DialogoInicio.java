@@ -15,7 +15,7 @@ public class DialogoInicio extends JDialog {
     // VARIABLES
     private int accion = 3;
     private String nombreUsuario;
-    private char[] contrasena;
+    private String contrasena;
 
     // INTERFAZ
     private JTextField txtBienBenido;
@@ -193,10 +193,30 @@ public class DialogoInicio extends JDialog {
 
     // Recojo los valores de los inputs
     private void accionEntrar() {
-        nombreUsuario = nombreUsuario_JtextField.getText();
-        contrasena = contrasena_JTextField.getPassword();
-        accion = 2;
-        dispose();
+        nombreUsuario = nombreUsuario_JtextField.getText().trim();
+        contrasena = String.valueOf(contrasena_JTextField.getPassword()).trim();
+
+        // Se comprueba si la contraseña y el usuario estan vacios
+        if (comprobarNombre() && comprobarContrasena()) {
+            accion = 2;
+            dispose();
+        }
+    }
+
+    private boolean comprobarNombre() {
+        if (!nombreUsuario.isEmpty()) {
+            return true;
+        }
+        JOptionPane.showMessageDialog(null, "El nombre de usuario no puede estar vacio");
+        return false;
+    }
+
+    private boolean comprobarContrasena() {
+        if (!contrasena.isEmpty()) {
+            return true;
+        }
+        JOptionPane.showMessageDialog(null, "La contraseña no puede estar vacia");
+        return false;
     }
 
     // Establezco la variable de la opción de cancelado

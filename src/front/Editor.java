@@ -319,8 +319,7 @@ public class Editor extends JFrame {
         int y = (screenSize.height - getHeight()) / 2;
         setLocation(x, y);
         setVisible(true);
-
-
+        
         // Se carga los datos del usuario si el fichero de conexión y la base de datos son accesibles
         File ficheroConexion = new File("./conexion.txt");
         if (ficheroConexion.exists()) {
@@ -459,17 +458,21 @@ public class Editor extends JFrame {
     // Aumentar tamaño fuente
     private void aumantarFuente() {
         Font fuenteActual = textArea.getFont();
-        Font nuevaFuente = fuenteActual.deriveFont(Font.PLAIN, fuenteActual.getSize() + 2);
-        textArea.setFont(nuevaFuente);
-        selectedNote.setTamanoTexto(fuenteActual.getSize());
+        if (fuenteActual.getSize() <= 500) {
+            Font nuevaFuente = fuenteActual.deriveFont(Font.PLAIN, fuenteActual.getSize() + 2);
+            textArea.setFont(nuevaFuente);
+            selectedNote.setTamanoTexto(fuenteActual.getSize());
+        }
     }
 
     // Disminuir tamaño fuente
     private void disminurFuente() {
         Font fuenteActual = textArea.getFont();
-        Font nuevaFuente = fuenteActual.deriveFont(Font.PLAIN, fuenteActual.getSize() - 2);
-        textArea.setFont(nuevaFuente);
-        selectedNote.setTamanoTexto(fuenteActual.getSize());
+        if (fuenteActual.getSize() >= 20) {
+            Font nuevaFuente = fuenteActual.deriveFont(Font.PLAIN, fuenteActual.getSize() - 2);
+            textArea.setFont(nuevaFuente);
+            selectedNote.setTamanoTexto(fuenteActual.getSize());
+        }
     }
 
     // Reemplazar todas las coincidencias del texto

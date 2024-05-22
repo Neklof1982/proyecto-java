@@ -16,7 +16,7 @@ public class DialogoRegistro extends JDialog {
     // VARIABLES
     String nombre;
     String apellido;
-    char[] contrasena;
+    String contrasena;
     int accion;
 
     // INTERFAZ
@@ -228,33 +228,64 @@ public class DialogoRegistro extends JDialog {
         if (comprobarNombre() && comprobarApellido() && comprobarContrasena()) {
             nombre = nombreUsuario_JtextField.getText();
             apellido = apellido_JtextField.getText();
-            contrasena = contrasena_JPassword1.getPassword();
+            contrasena = String.valueOf(contrasena_JPassword1.getPassword());
             accion = 2;
             dispose();
         }
     }
 
     private boolean comprobarContrasena() {
-        if (String.valueOf(String.valueOf(contrasena_JPassword1.getPassword())).equals(String.valueOf(contrasena_JPassword2.getPassword()))) {
-            return true;
+        String contrasena1 = String.valueOf(contrasena_JPassword1.getPassword());
+        String contrasena2 = String.valueOf(contrasena_JPassword2.getPassword());
+
+        // Se comprueba que sean iguales
+        if (contrasena1.equals(contrasena2)) {
+            // Se comprueba que no esten vacias
+            if (!contrasena1.isEmpty()) {
+                // Se comprueba que no contenga espacios
+                if (!contrasena1.contains(" ")) {
+                    return true;
+                } else {
+                    JOptionPane.showMessageDialog(this, "La contraseña no puede tener espacios");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "La contraseña no puede estar vacia");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
         }
-        JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
         return false;
     }
 
     private boolean comprobarNombre() {
-        if (!(nombreUsuario_JLabel.getText().equals("")) || !(nombreUsuario_JLabel.getText().equals(" ")) || !(nombreUsuario_JtextField.getText() == null)) {
-            return true;
+
+        // Se comprueba que no este vacio
+        if (!nombreUsuario_JtextField.getText().isEmpty()) {
+            // Se comprueba que no tenga espacios
+            if (!nombreUsuario_JtextField.getText().contains(" ")) {
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(this, "El nombre no puede tener espacios");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "El nombre no puede estar vacio");
         }
-        JOptionPane.showMessageDialog(this, "Nombre no permitido");
         return false;
     }
 
     private boolean comprobarApellido() {
-        if (!(apellido_JtextField.getText().equals("")) || !(apellido_JtextField.getText().equals(" ")) || !(apellido_JtextField.getText() == null)) {
-            return true;
+
+        // Se comprueba que no este vacio
+        if (!apellido_JtextField.getText().isEmpty()) {
+            // Se comprueba que no tenga espacios
+            if (!apellido_JtextField.getText().contains(" ")) {
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(this, "El apellido no puede tener espacios");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "El apellido no puede estar vacio");
         }
-        JOptionPane.showMessageDialog(this, "Apellido no permitido");
         return false;
     }
 

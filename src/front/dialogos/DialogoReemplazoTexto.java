@@ -172,10 +172,22 @@ public class DialogoReemplazoTexto extends JDialog {
     }
 
     private void accionReemplazar() {
-        accion = 2;
-        nuevo = nuevoTexto_JTextField.getText();
-        antiguo = antiguoTexto_JTextField.getText();
-        dispose();
+
+        if (comprobarAntiguoTexto()) {
+            accion = 2;
+            nuevo = nuevoTexto_JTextField.getText();
+            antiguo = antiguoTexto_JTextField.getText();
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "El texto antiguo no puede estar vacio");
+        }
+    }
+
+    private boolean comprobarAntiguoTexto() {
+        if (!antiguoTexto_JTextField.getText().isEmpty()) {
+            return true;
+        }
+        return false;
     }
 
     private void accionCerrar() {
