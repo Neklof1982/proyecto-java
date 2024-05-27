@@ -1,6 +1,4 @@
-import front.Editor;
-import front.dialogos.DialogoInicio;
-import front.dialogos.DialogoRegistro;
+import front.ventanas.Editor;
 
 import java.awt.*;
 
